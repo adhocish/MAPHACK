@@ -43,27 +43,27 @@ def get_maps_url(args):
 
 @app.route("/maphack/api/", methods=["POST"])
 def get_directions():
-    # Retrieve form data
     try:
+        # Retrieve form data
         paramstring = request.form['paramstring']
         phoneNumber = request.form['phoneno']
+
+        # Decode parameter string
+        paramstring = dumb_decode(paramstring)
+
+        print "paramstring = " + paramstring
+
+        # Parse parameter string
+        GMAPS_PARAMETERS['origin'], GMAPS_PARAMETERS['destination'] = paramstring.split('*')
+
+        # Generate Maps API URL with input parameters
+        requestURL = get_maps_url(GMAPS_PARAMETERS)
+
+        # Visit Maps API URL and read response
+        response = urllib2.urlopen(requestURL).read()
     except Exception as e:
         print e
         return jsonify({'result':'400'}) # bad request
-
-    # Decode parameter string
-    paramstring = dumb_decode(paramstring)
-
-    print "paramstring = " + paramstring
-
-    # Parse parameter string
-    GMAPS_PARAMETERS['origin'], GMAPS_PARAMETERS['destination'] = paramstring.split('*')
-
-    # Generate Maps API URL with input parameters
-    requestURL = get_maps_url(GMAPS_PARAMETERS)
-
-    # Visit Maps API URL and read response
-    response = urllib2.urlopen(requestURL).read()
 
     # Parse Google Maps json response
     steps = get_steps(response)
@@ -81,7 +81,7 @@ def get_directions():
         for i in range(0, len(payload), 160):
             # TODO: retrieve phone number
             try:
-                print send_text(phoneno, unicode(payload[i:i+160]).encode('utf-8'))
+                print send_text(phoneNumber, unicode(payload[i:i+160]).encode('utf-8'))
                 sleep(5)
             except UnicodeEncodeError, e:
                 pass
