@@ -63,7 +63,7 @@ def get_directions():
         response = urllib2.urlopen(requestURL).read()
     except Exception as e:
         print e
-        return jsonify({'result':'400'}) # bad request
+        return jsonify({'result':'Request failed.'}) # bad request
 
     # Parse Google Maps json response
     steps = get_steps(response)
