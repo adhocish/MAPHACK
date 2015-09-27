@@ -7,6 +7,10 @@ FOR_ACTIONS = [
     "Head",
 ]
 
+IN_ACTIONS = [
+    "Destination"
+]
+
 class Directions:
     def __init__(self, leg):
         self.__leg = leg
@@ -29,6 +33,9 @@ class Directions:
         for action in FOR_ACTIONS:
             if action in s['html_instructions']:
                 sep = " for "
+        for action in IN_ACTIONS:
+            if action in s['html_instructions']:
+                sep = " in "
 
         step = s['html_instructions'] + sep + s['distance']['text']
 
