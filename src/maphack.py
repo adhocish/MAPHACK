@@ -73,17 +73,26 @@ def get_directions():
 
     print steps
 
-    # Text directions to phone number
-    payload = ''
-    for step in steps:
-        # payload += step + '%0A'
-        payload = '%28' + str(steps.index(step)) + '%29' + '%20' + step.replace(' ', '%20')
+    # Errors
+    if type(steps) == 'str':
+        payload = steps.replace(' ', '%20')
         for i in range(0, len(payload), 160):
-            # TODO: retrieve phone number
             try:
                 print send_text(phoneNumber, unicode(payload[i:i+160]).encode('utf-8'))
                 sleep(5)
             except UnicodeEncodeError, e:
                 pass
+    # No errors
+    else:
+        # Text directions to phone number
+        payload = ''
+        for step in steps:
+            payload = '%28' + str(steps.index(step)) + '%29' + '%20' + step.replace(' ', '%20')
+            for i in range(0, len(payload), 160):
+                try:
+                    print send_text(phoneNumber, unicode(payload[i:i+160]).encode('utf-8'))
+                    sleep(5)
+                except UnicodeEncodeError, e:
+                    pass
 
     return jsonify({'result':steps})
