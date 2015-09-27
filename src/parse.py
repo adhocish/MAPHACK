@@ -57,10 +57,15 @@ def get_steps(mapsJson):
     if parsed_json['status'] == 'OK':
         trip = parsed_json['routes'][0]['legs'][0] ## first leg of first route
         d = Directions(trip)
-        result = d.steps()
-
+        return d.steps()
+    elif parsed_json['status'] == 'ZERO_RESULTS':
+        return 'No available routes.'
+    elif parsed_json['status'] == 'NOT_FOUND':
+        return 'Location not found.'
+    elif parsed_json['status'] == "REQUEST_DENIED":
+        return parsed_json['error_message']
     else:
         if 'error_message' in parsed_json:
-            print parsed_json['error_message']
+            return parsed_json['error_message']
 
     return result

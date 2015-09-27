@@ -69,7 +69,7 @@ def get_directions():
     steps = get_steps(response)
     # No routes
     if not steps:
-        return jsonify({'result':'failed'})
+        return jsonify({'result':'Request failed.'})
 
     print steps
 
