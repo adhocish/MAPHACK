@@ -46,6 +46,7 @@ def get_directions():
     # Retrieve form data
     try:
         paramstring = request.form['paramstring']
+        phoneNumber = request.form['phoneno']
     except Exception as e:
         print e
         return jsonify({'result':'400'}) # bad request
@@ -80,7 +81,7 @@ def get_directions():
         for i in range(0, len(payload), 160):
             # TODO: retrieve phone number
             try:
-                print send_text('5197812162', unicode(payload[i:i+160]).encode('utf-8'))
+                print send_text(phoneno, unicode(payload[i:i+160]).encode('utf-8'))
                 sleep(5)
             except UnicodeEncodeError, e:
                 pass
