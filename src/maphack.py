@@ -69,7 +69,7 @@ def get_directions():
     payload = ''
     for step in steps:
         # payload += step + '%0A'
-        payload = str(steps.index(step)) + step.replace(' ', '%20')
+        payload = '(' + str(steps.index(step)) + ') ' + step.replace(' ', '%20')
         for i in range(0, len(payload), 160):
             # TODO: retrieve phone number
             try:
