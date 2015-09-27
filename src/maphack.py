@@ -53,6 +53,8 @@ def get_directions():
     # Decode parameter string
     paramstring = dumb_decode(paramstring)
 
+    print "paramstring = " + paramstring
+
     # Parse parameter string
     GMAPS_PARAMETERS['origin'], GMAPS_PARAMETERS['destination'] = paramstring.split('*')
 
@@ -68,11 +70,13 @@ def get_directions():
     if not steps:
         return jsonify({'result':'failed'})
 
+    print steps
+
     # Text directions to phone number
     payload = ''
     for step in steps:
         # payload += step + '%0A'
-        payload = '(' + str(steps.index(step)) + ') ' + step.replace(' ', '%20')
+        payload = '%28' + str(steps.index(step)) + '%29' + '%20' + step.replace(' ', '%20')
         for i in range(0, len(payload), 160):
             # TODO: retrieve phone number
             try:
