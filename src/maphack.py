@@ -5,6 +5,7 @@ from flask import jsonify, request
 import urllib2
 from parse import get_steps
 from text import send_text
+from dumbencode import dumb_decode
 
 GMAPS_API_ARG = "json?"
 GMAPS_API_SEP = "&"
@@ -43,13 +44,16 @@ def get_maps_url(args):
 def get_directions():
     # Retrieve form data
     try:
-        # Iterate over accepted fields
-        for key in GMAPS_PARAMETERS:
-            if GMAPS_PARAMETERS[key] == "":
-                GMAPS_PARAMETERS[key] = request.form[key]
+        paramstring = request.form['paramstring']
     except Exception as e:
         print e
         return jsonify({'result':'400'}) # bad request
+
+    # Decode parameter string
+    paramstring = dumb_decode(paramstring)
+
+    # Parse parameter string
+    GMAPS_PARAMETERS['origin'], GMAPS_PARAMETERS['destination'] = paramstring.split('*')
 
     # Generate Maps API URL with input parameters
     requestURL = get_maps_url(GMAPS_PARAMETERS)
