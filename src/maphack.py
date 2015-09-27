@@ -71,6 +71,9 @@ def get_directions():
         payload = step.replace(' ', '%20')
         for i in range(0, len(payload), 160):
             # TODO: retrieve phone number
-            print send_text('5197812162', payload[i:i+160])
+            try:
+                print send_text('5197812162', unicode(payload[i:i+160]).encode('utf-8'))
+            except UnicodeEncodeError, e:
+                pass
 
     return jsonify({'result':steps})
