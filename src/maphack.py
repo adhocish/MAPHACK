@@ -64,6 +64,9 @@ def get_directions():
 
     # Parse Google Maps json response
     steps = get_steps(response)
+    # No routes
+    if not steps:
+        return jsonify({'result':'failed'})
 
     # Text directions to phone number
     payload = ''
