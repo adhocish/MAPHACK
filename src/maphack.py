@@ -4,11 +4,12 @@ from flask import jsonify, request
 # import json
 import urllib2
 from parse import get_steps
+from text import send_text
 
 GMAPS_API_ARG = "json?"
 GMAPS_API_SEP = "&"
 GMAPS_API_KEY = "AIzaSyCs0TSnD82gNm4EMg0GfVL2MU8Pag9_fFg"
-GMAPS_API_TRANSPORTATION_MODE = "walking"
+GMAPS_API_TRANSPORTATION_MODE = "driving"
 GMAPS_API_ENDPOINT = "https://maps.googleapis.com/maps/api/directions/"
 
 GMAPS_PARAMETERS = {
@@ -33,7 +34,7 @@ def get_maps_url(args):
     url = GMAPS_API_ENDPOINT + GMAPS_API_ARG
 
     # append Maps parameters
-    for field in GMAPS_PARAMETERS:
+    for field in args:
         url += field + "=" + args[field] + GMAPS_API_SEP
 
     return url
@@ -58,5 +59,14 @@ def get_directions():
 
     # Parse Google Maps json response
     steps = get_steps(response)
+
+    # Text directions to phone number
+    payload = ''
+    for step in steps:
+        # payload += step + '%0A'
+        payload = step.replace(' ', '%20')
+        for i in range(0, len(payload), 160):
+            # TODO: retrieve phone number
+            print send_text('5197812162', payload[i:i+160])
 
     return jsonify({'result':steps})
