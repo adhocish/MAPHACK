@@ -64,6 +64,8 @@ def get_steps(mapsJson):
         return 'Location not found.'
     elif parsed_json['status'] == "REQUEST_DENIED":
         return parsed_json['error_message']
+    elif parsed_json['status'] == "INVALID_REQUEST":
+        return parsed_json['error_message']
     else:
         if 'error_message' in parsed_json:
             return parsed_json['error_message']
