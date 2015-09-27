@@ -3,6 +3,7 @@ from flask import jsonify, request
 
 # import json
 import urllib2
+from time import sleep
 from parse import get_steps
 from text import send_text
 from dumbencode import dumb_decode
@@ -68,11 +69,12 @@ def get_directions():
     payload = ''
     for step in steps:
         # payload += step + '%0A'
-        payload = step.replace(' ', '%20')
+        payload = str(steps.index(step)) + step.replace(' ', '%20')
         for i in range(0, len(payload), 160):
             # TODO: retrieve phone number
             try:
                 print send_text('5197812162', unicode(payload[i:i+160]).encode('utf-8'))
+                sleep(5)
             except UnicodeEncodeError, e:
                 pass
 
