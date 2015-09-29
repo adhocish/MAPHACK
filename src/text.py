@@ -14,3 +14,15 @@ def send_text(phoneNum, payload):
     # json_resp = json.loads(response)
     # return json_resp["type"]
     return response
+
+def send_multiple_texts(phoneNum, textList):
+    # Text directions to phone number
+    payload = ''
+    for text in textList:
+        payload = '%28' + str(textList.index(text)) + '%29' + '%20' + text.replace(' ', '%20')
+        for i in range(0, len(payload), 160):
+            try:
+                print send_text(phoneNumber, unicode(payload[i:i+160]).encode('utf-8'))
+                sleep(5)
+            except UnicodeEncodeError, e:
+                pass

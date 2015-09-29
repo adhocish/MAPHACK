@@ -1,11 +1,15 @@
+# flask imports
 from app import app
 from flask import jsonify, request
 
-# import json
+# general imports
 import urllib2
 from time import sleep
+from threading import Thread
+
+# maphack imports
 from parse import get_steps
-from text import send_text
+from text import send_multiple_texts
 from dumbencode import dumb_decode
 
 GMAPS_API_ARG = "json?"
@@ -84,15 +88,8 @@ def get_directions():
                 pass
     # No errors
     else:
-        # Text directions to phone number
-        payload = ''
-        for step in steps:
-            payload = '%28' + str(steps.index(step)) + '%29' + '%20' + step.replace(' ', '%20')
-            for i in range(0, len(payload), 160):
-                try:
-                    print send_text(phoneNumber, unicode(payload[i:i+160]).encode('utf-8'))
-                    sleep(5)
-                except UnicodeEncodeError, e:
-                    pass
+        # Text Thread
+        Thread(target = , args=(,))
+
 
     return jsonify({'result':steps})
