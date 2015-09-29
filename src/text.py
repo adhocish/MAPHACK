@@ -1,5 +1,5 @@
 import urllib2
-# import json
+from time import sleep
 
 TEXT_API_URL = 'http://69.204.255.92/api/text/send?'
 TEXT_API_SEP = '&'
@@ -22,7 +22,7 @@ def send_multiple_texts(phoneNum, textList):
         payload = '%28' + str(textList.index(text)) + '%29' + '%20' + text.replace(' ', '%20')
         for i in range(0, len(payload), 160):
             try:
-                print send_text(phoneNumber, unicode(payload[i:i+160]).encode('utf-8'))
+                print send_text(phoneNum, unicode(payload[i:i+160]).encode('utf-8'))
                 sleep(5)
             except UnicodeEncodeError, e:
                 pass

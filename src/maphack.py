@@ -89,7 +89,7 @@ def get_directions():
     # No errors
     else:
         # Text Thread
-        Thread(target = , args=(,))
+        Thread(target = send_multiple_texts, args=(phoneNumber,steps,)).start()
 
 
     return jsonify({'result':steps})
