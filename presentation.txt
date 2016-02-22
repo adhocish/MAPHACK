@@ -1,0 +1,19 @@
+- names:        andy, alvin, yibo
+
+- problem:      We were wondering what people could possibly use voice calls for, other than calling people.
+                If you've ever travelled to a foreign country, you know your access to data and WiFi is your lifeline.
+                Without it, your smartphone is nothing more than a regular cellphone.
+                That's where MapHack comes in.
+                MapHack will provide you directions on how to get from Point A to Point B anywhere around the world, without any access to WiFi or data.
+                Unlike other offline map applications, MapHack does not require you to download any maps beforehand and will even function on a non-smart phone.
+
+- stack:        iOS, Flask (python microframework) hosted on DigitalOcean, Designer, Google Maps API
+
+
+
+ssh andy@159.203.0.142
+gen8
+cd MAPHACK
+sudo lsof -i
+sudo kill -9 [TCPLISTEN_PID]
+sudo python run.py
