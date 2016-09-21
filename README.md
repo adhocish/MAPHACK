@@ -2,7 +2,7 @@
 
 ## What is it?
 
-MapHack is a mobile application that will provide directions from point A to point B using only a phone connection; it does not require **any** access to data/WiFi or pre-downloaded offline maps! MapHack was developed by @[adhocish](https://github.com/adhocish), @[alvinzxu](https://github.com/alvinzxu), and @[YiboDuan](https://github.com/YiboDuan) during the 2015 Genesys Hackathon in Toronto and took first place.
+MapHack is a mobile application that will provide directions from point A to point B using only a cellular connection; it does not require **any** access to data/WiFi or pre-downloaded offline maps. MapHack was developed by @[adhocish](https://github.com/adhocish), @[alvinzxu](https://github.com/alvinzxu), and @[YiboDuan](https://github.com/YiboDuan) during the 2015 Genesys Hackathon in Toronto and took first place.
 
 ## Demo
 
